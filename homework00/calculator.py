@@ -80,7 +80,7 @@ def match_case_calc1(num_1: float, num_2: float, command: str) -> tp.Union[float
             return f"неизвестный оператор: {command!r}."
 
 
-def match_case_calc2(num_1: float, command: str) -> tp.Union[float, str]:
+def match_case_calc2(num_1: float, command: str) -> tp.Union[float, str]:  # type: ignore
     match command:
         case "**2":
             return num_1**2
@@ -98,6 +98,9 @@ def match_case_calc2(num_1: float, command: str) -> tp.Union[float, str]:
             if num_1 > 0:
                 return math.log10(num_1)
             return "десятичный логарифм должен быть строго больше нуля"
+        case _:
+            return f"неизвестный оператор: {command!r}."
+
 
 
 if __name__ == "__main__":
