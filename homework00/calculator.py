@@ -103,6 +103,8 @@ def match_case_calc2(num_1: float, command: str) -> tp.Union[float, str]:  # typ
 
 
 
+
+
 if __name__ == "__main__":
     operators_1 = ("+", "-", "/", "*", "convert", "**")
     operators_2 = ("**2", "sin", "cos", "tg", "log", "lg")
