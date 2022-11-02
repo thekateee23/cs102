@@ -82,6 +82,7 @@ def match_case_calc1(num_1: float, num_2: float, command: str) -> tp.Union[float
             return f"неизвестный оператор: {command!r}."
     return f"неизвестный оператор: {command!r}."
 
+
 def match_case_calc2(num_1: float, command: str) -> tp.Union[float, str]:
     match command:
         case "**2":
@@ -105,6 +106,7 @@ def match_case_calc2(num_1: float, command: str) -> tp.Union[float, str]:
         case _:
             return f"неизвестный оператор: {command!r}."
     return f"неизвестный оператор: {command!r}."
+
 
 def calc(s: str) -> int:
     num = 0
