@@ -13,7 +13,7 @@ def encrypt_caesar(plaintext: str, shift: int = 3) -> str:
     ciphertext = ""
     for elem in plaintext:
         if 65 <= ord(elem) <= 90:
-            ciphertext += chr(((ord(elem) - 65 + shift) % 26) + 65)
+            ciphertext += chr((ord(elem) - 65 + shift) % 26 + 65)
         elif 97 <= ord(elem) <= 122:
             ciphertext += chr(((ord(elem) - 97 + shift) % 26) + 97)
         else:
@@ -40,7 +40,7 @@ def decrypt_caesar(ciphertext: str, shift: int = 3) -> str:
         if ciphertext[i].isalpha() and ciphertext[i].isupper():
             num = ord(ciphertext[i]) - shift
             if num < ord("A"):
-                num = ord("Z") - (ord("A") - num) + 1
+                num = ord("Z") - ord("A") - num + 1
                 plaintext += chr(num)
             else:
                 plaintext += chr(num)
