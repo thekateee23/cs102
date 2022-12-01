@@ -11,14 +11,19 @@ def encrypt_caesar(plaintext: str, shift: int = 3) -> str:
     ''
     """
     ciphertext = ""
-    for elem in plaintext:
-        if 65 <= ord(elem) <= 90:
-            ciphertext += chr((ord(elem) - 65 + shift) % 26 + 65)
-        elif 97 <= ord(elem) <= 122:
-            ciphertext += chr(((ord(elem) - 97 + shift) % 26) + 97)
+    for i in range(len(plaintext)):
+        if plaintext[i].islower() and plaintext[i].isalpha():
+            if (ord(plaintext[i]) + shift) > ord("z"):
+                ciphertext += chr(((ord(plaintext[i]) + shift) % ord("z")) + (ord("a")) - 1)
+            else:
+                ciphertext += chr(ord(plaintext[i]) + shift)
+        elif plaintext[i].isupper() and plaintext[i].isalpha():
+            if (ord(plaintext[i]) + shift) > ord("Z"):
+                ciphertext += chr(((ord(plaintext[i]) + shift) % ord("Z")) + (ord("A")) - 1)
+            else:
+                ciphertext += chr(ord(plaintext[i]) + shift)
         else:
-            ciphertext += elem
-
+            ciphertext += plaintext[i]
     return ciphertext
 
 
@@ -34,23 +39,18 @@ def decrypt_caesar(ciphertext: str, shift: int = 3) -> str:
     >>> decrypt_caesar("")
     ''
     """
-    shift %= 26
     plaintext = ""
     for i in range(len(ciphertext)):
-        if ciphertext[i].isalpha() and ciphertext[i].isupper():
-            num = ord(ciphertext[i]) - shift
-            if num < ord("A"):
-                num = ord("Z") - ord("A") - num + 1
-                plaintext += chr(num)
+        if ciphertext[i].islower() and ciphertext[i].isalpha():
+            if (ord(ciphertext[i]) - shift) < ord("a"):
+                plaintext += chr(ord("z") + 1 - (ord("a") - (ord(ciphertext[i]) - shift)))
             else:
-                plaintext += chr(num)
-        if ciphertext[i].isalpha() and ciphertext[i].islower():
-            num = ord(ciphertext[i]) - shift
-            if num < ord("a"):
-                num = ord("z") - (ord("a") - num) + 1
-                plaintext += chr(num)
+                plaintext += chr(ord(ciphertext[i]) - shift)
+        elif ciphertext[i].isupper() and ciphertext[i].isalpha():
+            if (ord(ciphertext[i]) - shift) < ord("A"):
+                plaintext += chr(ord("Z") + 1 - (ord("A") - (ord(ciphertext[i]) - shift)))
             else:
-                plaintext += chr(num)
-        if not ciphertext[i].isalpha():
+                plaintext += chr(ord(ciphertext[i]) - shift)
+        else:
             plaintext += ciphertext[i]
     return plaintext
