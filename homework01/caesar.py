@@ -1,6 +1,3 @@
-from string import punctuation
-
-
 def encrypt_caesar(plaintext: str, shift: int = 3) -> str:
     """
     Encrypts plaintext using a Caesar cipher.
@@ -21,6 +18,7 @@ def encrypt_caesar(plaintext: str, shift: int = 3) -> str:
             ciphertext += chr(((ord(elem) - 97 + shift) % 26) + 97)
         else:
             ciphertext += elem
+
     return ciphertext
 
 
@@ -38,13 +36,21 @@ def decrypt_caesar(ciphertext: str, shift: int = 3) -> str:
     """
     shift %= 26
     plaintext = ""
-    for elem in ciphertext:
-        if elem == " " or elem.isdigit() or elem in punctuation:
-            plaintext += elem
-        elif ((ord(elem) - shift) < 97) and ((ord(elem) - shift) > 90):
-            plaintext += chr((ord(elem) - shift) + 26)
-        elif (ord(elem) - shift) < 65:
-            plaintext += chr((ord(elem) - shift) + 26)
-        else:
-            plaintext += chr(ord(elem) - shift)
+    for i in range(len(ciphertext)):
+        if ciphertext[i].isalpha() and ciphertext[i].isupper():
+            num = ord(ciphertext[i]) - shift
+            if num < ord("A"):
+                num = ord("Z") - (ord("A") - num) + 1
+                plaintext += chr(num)
+            else:
+                plaintext += chr(num)
+        if ciphertext[i].isalpha() and ciphertext[i].islower():
+            num = ord(ciphertext[i]) - shift
+            if num < ord("a"):
+                num = ord("z") - (ord("a") - num) + 1
+                plaintext += chr(num)
+            else:
+                plaintext += chr(num)
+        if not ciphertext[i].isalpha():
+            plaintext += ciphertext[i]
     return plaintext
