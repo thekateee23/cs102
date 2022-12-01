@@ -1,6 +1,5 @@
 import random
 import typing as tp
-from math import sqrt
 
 
 def is_prime(n: int) -> bool:
@@ -14,17 +13,12 @@ def is_prime(n: int) -> bool:
     False
     """
 
-    if n <= 1:
-        return False
-    d = 2
-    count = 0
+    if n % 2 == 0:
+        return n == 2
+    d = 3
     while d * d <= n and n % d != 0:
-        d += 1
-        count += 1
-    if count > 0:
-        return False
-    else:
-        return True
+        d += 2
+    return d * d > n
 
 
 def gcd(a: int, b: int) -> int:
