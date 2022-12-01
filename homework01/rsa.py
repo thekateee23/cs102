@@ -18,7 +18,7 @@ def is_prime(n: int) -> bool:
         return False
     d = 2
     count = 0
-    while d * d <= sqrt(n) and n % d != 0:
+    while d * d <= n and n % d != 0:
         d += 1
         count += 1
     if count > 0:
