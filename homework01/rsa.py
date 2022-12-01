@@ -42,7 +42,7 @@ def multiplicative_inverse(e: int, phi: int) -> int:
     >>> multiplicative_inverse(7, 40)
     23
     """
-    y = pow(x, -1, p)
+    y = pow(e, -1, phi)
     pass
 
 
