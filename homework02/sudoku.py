@@ -175,7 +175,7 @@ def generate_sudoku(n: int):
     """
     grid = [["."] * 9 for _ in range(9)]
     sudoku = solve(grid)
-    mask = list(" " * number + "." * (81 - number))
+    mask = list(" " * number + "." * (81 - n))
     random.shuffle(mask)
     return [[sudoku[i][j] if mask[i * 9 + j] == " " else "." for j in range(9)] for i in range(9)]
     pass
