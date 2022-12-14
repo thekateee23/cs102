@@ -175,7 +175,6 @@ def generate_sudoku(n: int):
     True
     """
 
-    
     grid = [["."] * 9 for _ in range(9)]
     sudoku = solve(grid)
     mask = list(" " * n + "." * (81 - n))
