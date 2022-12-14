@@ -174,6 +174,7 @@ def generate_sudoku(n: int):
     >>> check_solution(solution)
     True
     """
+
     
     grid = [["."] * 9 for _ in range(9)]
     sudoku = solve(grid)
