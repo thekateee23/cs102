@@ -133,6 +133,7 @@ def solve(grid: tp.List[tp.List[str]]) -> tp.Optional[tp.List[tp.List[str]]]:
         if solution:
             return solution
         grid[pos[0]][pos[1]] = "."
+    return None
     pass
 
 
