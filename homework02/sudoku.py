@@ -154,7 +154,7 @@ def check_solution(solution: tp.List[tp.List[str]]) -> bool:
     pass
 
 
-def generate_sudoku(number: int) -> tp.List[tp.List[str]]:
+def generate_sudoku(n: int) -> tp.List[tp.List[str]]:
     """Генерация судоку заполненного на N элементов
     >>> grid = generate_sudoku(40)
     >>> sum(1 for row in grid for e in row if e == '.')
@@ -178,7 +178,7 @@ def generate_sudoku(number: int) -> tp.List[tp.List[str]]:
 
     grid = [["."] * 9 for _ in range(9)]
     sudoku = solve(grid)
-    mask = list(" " * number + "." * (81 - number))
+    mask = list(" " * n + "." * (81 - n))
     random.shuffle(mask)
     return [[sudoku[i][j] if mask[i * 9 + j] == " " else "." for j in range(9)] for i in range(9)]
 
