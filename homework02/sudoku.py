@@ -38,8 +38,7 @@ def group(values: tp.List[T], n: int) -> tp.List[tp.List[T]]:
     >>> group([1,2,3,4,5,6,7,8,9], 3)
     [[1, 2, 3], [4, 5, 6], [7, 8, 9]]
     """
-    return [values[i : i + n] for i in range(0, len(values), n)]
-    pass
+    return [values[i: i + n] for i in range(0, len(values), n)]
 
 
 def get_row(grid: tp.List[tp.List[str]], pos: tp.Tuple[int, int]) -> tp.List[str]:
@@ -52,7 +51,6 @@ def get_row(grid: tp.List[tp.List[str]], pos: tp.Tuple[int, int]) -> tp.List[str
     ['.', '8', '9']
     """
     return grid[pos[0]]
-    pass
 
 
 def get_col(grid: tp.List[tp.List[str]], pos: tp.Tuple[int, int]) -> tp.List[str]:
@@ -65,7 +63,6 @@ def get_col(grid: tp.List[tp.List[str]], pos: tp.Tuple[int, int]) -> tp.List[str
     ['3', '6', '9']
     """
     return [row[pos[1]] for row in grid]
-    pass
 
 
 def get_block(grid: tp.List[tp.List[str]], pos: tp.Tuple[int, int]) -> tp.List[str]:
@@ -81,7 +78,6 @@ def get_block(grid: tp.List[tp.List[str]], pos: tp.Tuple[int, int]) -> tp.List[s
     br = pos[0] // 3 * 3
     bc = pos[1] // 3 * 3
     return [grid[r][c] for r in range(br, br + 3) for c in range(bc, bc + 3)]
-    pass
 
 
 def find_empty_positions(grid: tp.List[tp.List[str]]) -> tp.Optional[tp.Tuple[int, int]]:
@@ -95,7 +91,6 @@ def find_empty_positions(grid: tp.List[tp.List[str]]) -> tp.Optional[tp.Tuple[in
     """
     answer = [(i, j) for i in range(len(grid)) for j in range(len(grid[i])) if grid[i][j] == "."]
     return answer[0] if answer else None
-    pass
 
 
 def find_possible_values(grid: tp.List[tp.List[str]], pos: tp.Tuple[int, int]) -> tp.Set[str]:
@@ -109,7 +104,6 @@ def find_possible_values(grid: tp.List[tp.List[str]], pos: tp.Tuple[int, int]) -
     True
     """
     return set("123456789") - set(get_row(grid, pos) + get_col(grid, pos) + get_block(grid, pos))
-    pass
 
 
 def solve(grid: tp.List[tp.List[str]]) -> tp.Optional[tp.List[tp.List[str]]]:
@@ -134,7 +128,6 @@ def solve(grid: tp.List[tp.List[str]]) -> tp.Optional[tp.List[tp.List[str]]]:
             return solution
         grid[pos[0]][pos[1]] = "."
     return None
-    pass
 
 
 def check_solution(solution: tp.List[tp.List[str]]) -> bool:
@@ -151,7 +144,6 @@ def check_solution(solution: tp.List[tp.List[str]]) -> bool:
             ):
                 return False
     return True
-    pass
 
 
 def generate_sudoku(n: int) -> tp.List[tp.List[str]]:
