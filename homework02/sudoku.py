@@ -142,18 +142,17 @@ def solve(grid: tp.List[tp.List[str]]) -> tp.Optional[tp.List[tp.List[str]]]:
 def check_solution(solution: tp.List[tp.List[str]]) -> bool:
     """Если решение solution верно, то вернуть True, в противном случае False"""
 
-    for elem, i in enumerate(solution):
-        print(elem, i)
-        if (
-            elem == "."
-            or elem not in "123456789"
-            or get_row(solution, (i, j)).count(elem) > 1
-            or get_col(solution, (i, j)).count(elem) > 1
-            or get_block(solution, (i, j)).countelem() > 1
-        ):
-            return False
+    for i in range(0, len(solution)):
+        for j in range(0, len(solution[i])):
+            if (
+                solution[i][j] == "."
+                or solution[i][j] not in "123456789"
+                or get_row(solution, (i, j)).count(solution[i][j]) > 1
+                or get_col(solution, (i, j)).count(solution[i][j]) > 1
+                or get_block(solution, (i, j)).count(solution[i][j]) > 1
+            ):
+                return False
     return True
-
 
 def generate_sudoku(n: int) -> tp.List[tp.List[str]]:
     """Генерация судоку заполненного на N элементов
