@@ -78,9 +78,8 @@ def get_block(grid: tp.List[tp.List[str]], pos: tp.Tuple[int, int]) -> tp.List[s
     ['2', '8', '.', '.', '.', '5', '.', '7', '9']
     """
 
-    br = pos[0] // 3 * 3
-    bc = pos[1] // 3 * 3
-    return [grid[r][c] for r in range(br, br + 3) for c in range(bc, bc + 3)]
+    start_position = (pos[0] // 3 * 3, pos[1] // 3 * 3)
+    return [grid[i][j] for i in range(start_position[0], start_position[0] + 3) for j in range(start_position[1], start_position[1] + 3)]
 
 
 def find_empty_positions(grid: tp.List[tp.List[str]]) -> tp.Optional[tp.Tuple[int, int]]:
@@ -141,13 +140,7 @@ def check_solution(solution: tp.List[tp.List[str]]) -> bool:
 
     for i in range(0, len(solution)):
         for j in range(0, len(solution[i])):
-            if (
-                solution[i][j] == "."
-                or solution[i][j] not in "123456789"
-                or get_row(solution, (i, j)).count(solution[i][j]) > 1
-                or get_col(solution, (i, j)).count(solution[i][j]) > 1
-                or get_block(solution, (i, j)).count(solution[i][j]) > 1
-            ):
+            if (solution[i][j] == "." or solution[i][j] not in "123456789" or get_row(solution, (i, j)).count(solution[i][j]) > 1 or get_col(solution, (i, j)).count(solution[i][j]) > 1 or get_block(solution, (i, j)).count(solution[i][j]) > 1):
                 return False
     return True
 
@@ -178,7 +171,12 @@ def generate_sudoku(n: int) -> tp.List[tp.List[str]]:
     sudoku = solve(grid)
     mask = list(" " * n + "." * (81 - n))
     random.shuffle(mask)
-    return [[sudoku[i][j] if mask[i * 9 + j] == " " else "." for j in range(9)] for i in range(9)]  # type:ignore
+    #return [[sudoku[i][j] if mask[i * 9 + j] == " " else "." for j in range(9)] for i in range(9)]  # type:ignore
+    for i in range(9):
+        for j in range(9):
+            if mask[i * 9 + j] == ".":
+                sudoku[i][j] = "."
+    return sudoku
 
 
 if __name__ == "__main__":
