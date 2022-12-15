@@ -178,6 +178,7 @@ def generate_sudoku(n: int) -> tp.List[tp.List[str]]:
     random.shuffle(mask)
     return [[sudoku[i][j] if mask[i * 9 + j] == " " else "." for j in range(9)] for i in range(9)]
 
+
 if __name__ == "__main__":
     for file_name in ["puzzle1.txt", "puzzle2.txt", "puzzle3.txt"]:
         answer = read_sudoku(file_name)
