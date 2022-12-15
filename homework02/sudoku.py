@@ -176,7 +176,11 @@ def generate_sudoku(n: int) -> tp.List[tp.List[str]]:
     sudoku = solve(grid)
     mask = list(" " * n + "." * (81 - n))
     random.shuffle(mask)
-    return [[sudoku[i][j] if mask[i * 9 + j] == " " else "." for j in range(9)] for i in range(9)] # type: ingnore
+    for i in range(9):
+        for j in range(9):
+            if mask[i * 9 + j] == ".":
+                sudoku[i][j] = "."  # type:ignore
+    return sudoku  # type:ignore
 
 
 if __name__ == "__main__":
