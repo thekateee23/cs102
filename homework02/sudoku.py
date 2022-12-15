@@ -137,7 +137,7 @@ def solve(grid: tp.List[tp.List[str]]) -> tp.Optional[tp.List[tp.List[str]]]:
 
 def check_solution(solution: tp.List[tp.List[str]]) -> bool:
     """Если решение solution верно, то вернуть True, в противном случае False"""
-
+    possib_values = set("123456789")
     for i in range(len(solution[0])):
         if set(get_row(solution, (i, 0))) != set("123456789"):
             return False
@@ -146,7 +146,7 @@ def check_solution(solution: tp.List[tp.List[str]]) -> bool:
     for i in range(1, 9, 3):
         for j in range(1, 9, 3):
             pos = (i, j)
-            if set(get_block(solution, pos)) != possible_values:
+            if set(get_block(solution, pos)) != possib_values:
                 return False
 
     return True
