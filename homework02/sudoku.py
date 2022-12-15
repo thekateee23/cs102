@@ -150,8 +150,8 @@ def check_solution(solution: tp.List[tp.List[str]]) -> bool:
                 or get_row(solution, (i, j)).count(elem) > 1
                 or get_col(solution, (i, j)).count(elem) > 1
                 or get_block(solution, (i, j)).countelem() > 1
-            ):
-                return False
+        ):
+            return False
     return True
 
 
