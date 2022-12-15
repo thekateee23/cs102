@@ -79,11 +79,7 @@ def get_block(grid: tp.List[tp.List[str]], pos: tp.Tuple[int, int]) -> tp.List[s
     """
 
     x, y = (pos[0] // 3 * 3, pos[1] // 3 * 3)
-    return [
-        grid[i][j]
-        for i in range(x, x + 3)
-        for j in range(y, y + 3)
-    ]
+    return [grid[i][j] for i in range(x, x + 3) for j in range(y, y + 3)]
 
 
 def find_empty_positions(grid: tp.List[tp.List[str]]) -> tp.Optional[tp.Tuple[int, int]]:
