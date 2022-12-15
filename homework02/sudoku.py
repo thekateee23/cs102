@@ -139,9 +139,7 @@ def check_solution(solution: tp.List[tp.List[str]]) -> bool:
     """Если решение solution верно, то вернуть True, в противном случае False"""
     possib_values = set("123456789")
     for i, elem in enumerate(solution):
-        if set(get_row(solution, (i, 0))) != set("123456789"):
-            return False
-        if set(get_col(solution, (0, i))) != set("123456789"):
+        if set(get_row(solution, (i, 0))) and set(get_col(solution, (0, i))) != possib_values("123456789"):
             return False
     for i in range(1, 9, 3):
         for j in range(1, 9, 3):
@@ -176,14 +174,9 @@ def generate_sudoku(n: int) -> tp.List[tp.List[str]]:
 
     grid = [["."] * 9 for _ in range(9)]
     sudoku = solve(grid)
-    mask = list(" " * n + "." * (81 - n))
+    mask = list(" " * number + "." * (81 - number))
     random.shuffle(mask)
-    for i in range(9):
-        for j in range(9):
-            if mask[i * 9 + j] == ".":
-                sudoku[i][j] = "."  # type:ignore
-    return sudoku  # type:ignore
-
+    return [[sudoku[i][j] if mask[i * 9 + j] == " " else "." for j in range(9)] for i in range(9)]
 
 if __name__ == "__main__":
     for file_name in ["puzzle1.txt", "puzzle2.txt", "puzzle3.txt"]:
