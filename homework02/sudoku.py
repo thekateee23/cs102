@@ -189,5 +189,3 @@ if __name__ == "__main__":
             print(f"Puzzle {file_name} can't be solved")
         else:
             display(sol)
-
-
