@@ -154,6 +154,7 @@ def check_solution(solution: tp.List[tp.List[str]]) -> bool:
                 return False
     return True
 
+
 def generate_sudoku(n: int) -> tp.List[tp.List[str]]:
     """Генерация судоку заполненного на N элементов
     >>> grid = generate_sudoku(40)
