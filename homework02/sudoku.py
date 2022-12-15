@@ -139,7 +139,7 @@ def check_solution(solution: tp.List[tp.List[str]]) -> bool:
     """Если решение solution верно, то вернуть True, в противном случае False"""
     possib_values = set("123456789")
     for i, elem in enumerate(solution):
-        if set(get_row(solution, (i, 0))) and set(get_col(solution, (0, i))) != possib_values("123456789"):
+        if set(get_row(solution, (i, 0))) and set(get_col(solution, (0, i))) != possib_values("123456789"): # type:ignore
             return False
     for i in range(1, 9, 3):
         for j in range(1, 9, 3):
