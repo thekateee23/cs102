@@ -184,8 +184,8 @@ def generate_sudoku(n: int) -> tp.List[tp.List[str]]:
     for i in range(9):
         for j in range(9):
             if mask[i * 9 + j] == ".":
-                sudoku[i][j] = "."
-    return sudoku
+                sudoku[i][j] = "." # type:ignore
+    return sudoku # type:ignore
 
 
 if __name__ == "__main__":
