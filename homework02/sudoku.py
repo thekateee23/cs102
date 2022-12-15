@@ -145,11 +145,11 @@ def check_solution(solution: tp.List[tp.List[str]]) -> bool:
     for elem, i in enumerate(solution):
         print(elem, i)
         if (
-                elem == "."
-                or elem not in "123456789"
-                or get_row(solution, (i, j)).count(elem) > 1
-                or get_col(solution, (i, j)).count(elem) > 1
-                or get_block(solution, (i, j)).countelem() > 1
+            elem == "."
+            or elem not in "123456789"
+            or get_row(solution, (i, j)).count(elem) > 1
+            or get_col(solution, (i, j)).count(elem) > 1
+            or get_block(solution, (i, j)).countelem() > 1
         ):
             return False
     return True
