@@ -143,13 +143,13 @@ def check_solution(solution: tp.List[tp.List[str]]) -> bool:
     """Если решение solution верно, то вернуть True, в противном случае False"""
 
     for elem, i in enumerate(solution):
-        for j in range(0, len(elem)):
-            if (
-                solution[i][j] == "."
-                or solution[i][j] not in "123456789"
-                or get_row(solution, (i, j)).count(solution[i][j]) > 1
-                or get_col(solution, (i, j)).count(solution[i][j]) > 1
-                or get_block(solution, (i, j)).count(solution[i][j]) > 1
+        print(elem, i)
+        if (
+                elem == "."
+                or elem not in "123456789"
+                or get_row(solution, (i, j)).count(elem) > 1
+                or get_col(solution, (i, j)).count(elem) > 1
+                or get_block(solution, (i, j)).countelem() > 1
             ):
                 return False
     return True
