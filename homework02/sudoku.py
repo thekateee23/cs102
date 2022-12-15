@@ -92,7 +92,7 @@ def find_empty_positions(grid: tp.List[tp.List[str]]) -> tp.Optional[tp.Tuple[in
     (2, 0)
     """
 
-    answer = [(i, j) for i in range(len(grid)) for j in range(len(grid[i])) if grid[i][j] == "."]
+    answer = [(i, elem.index(j)) for i, elem in enumerate(grid) for j in elem if j == "."]
     return answer[0] if answer else None
 
 
@@ -138,7 +138,7 @@ def solve(grid: tp.List[tp.List[str]]) -> tp.Optional[tp.List[tp.List[str]]]:
 def check_solution(solution: tp.List[tp.List[str]]) -> bool:
     """Если решение solution верно, то вернуть True, в противном случае False"""
     possib_values = set("123456789")
-    for i in range(len(solution[0])):
+    for i, elem in enumerate(solution):
         if set(get_row(solution, (i, 0))) != set("123456789"):
             return False
         if set(get_col(solution, (0, i))) != set("123456789"):
