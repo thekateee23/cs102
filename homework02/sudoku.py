@@ -142,8 +142,8 @@ def solve(grid: tp.List[tp.List[str]]) -> tp.Optional[tp.List[tp.List[str]]]:
 def check_solution(solution: tp.List[tp.List[str]]) -> bool:
     """Если решение solution верно, то вернуть True, в противном случае False"""
 
-    for i in range(0, len(solution)):
-        for j in range(0, len(solution[i])):
+    for elem, i in enumerate(solution):
+        for j in range(0, len(elem)):
             if (
                 solution[i][j] == "."
                 or solution[i][j] not in "123456789"
