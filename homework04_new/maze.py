@@ -18,7 +18,30 @@ def remove_wall(
     :param coord:
     :return:
     """
-
+    if d == 0:
+        for i in range(0, unit):
+            for j in range(0, unit):
+                temp = (cur_pos[0] + i, cur_pos[1] + unit + j)
+                if temp in wall_set:
+                    wall_set.remove(temp)
+    elif d == 1:
+        for i in range(0, unit):
+            for j in range(0, unit):
+                temp = (cur_pos[0] - unit + i, cur_pos[1] + j)
+                if temp in wall_set:
+                    wall_set.remove(temp)
+    elif d == 2:
+        for i in range(0, unit):
+            for j in range(0, unit):
+                temp = (cur_pos[0] + i, cur_pos[1] - unit + j)
+                if temp in wall_set:
+                    wall_set.remove(temp)
+    elif d == 3:
+        for i in range(0, unit):
+            for j in range(0, unit):
+                temp = (cur_pos[0] + unit + i, cur_pos[1] + j)
+                if temp in wall_set:
+                    wall_set.remove(temp)
     pass
 
 
@@ -79,7 +102,17 @@ def make_step(grid: List[List[Union[str, int]]], k: int) -> List[List[Union[str,
     :param k:
     :return:
     """
-
+    for i in range(len(m)):
+        for j in range(len(m[i])):
+            if m[i][j] == k:
+                if i > 0 and m[i - 1][j] == 0 and a[i - 1][j] == 0:
+                    m[i - 1][j] = k + 1
+                if j > 0 and m[i][j - 1] == 0 and a[i][j - 1] == 0:
+                    m[i][j - 1] = k + 1
+                if i < len(m) - 1 and m[i + 1][j] == 0 and a[i + 1][j] == 0:
+                    m[i + 1][j] = k + 1
+                if j < len(m[i]) - 1 and m[i][j + 1] == 0 and a[i][j + 1] == 0:
+                    m[i][j + 1] = k + 1
     pass
 
 
