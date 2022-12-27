@@ -148,7 +148,6 @@ def solve_maze(
     :return:
     """
 
-    pass
 
 
 def add_path_to_grid(
