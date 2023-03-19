@@ -34,9 +34,7 @@ class GUI(UI):
                     pygame.draw.rect(
                         self.screen,
                         color,
-                        pygame.Rect(
-                            self.cell_size * j, self.cell_size * i, self.cell_size, self.cell_size
-                        ),
+                        pygame.Rect(self.cell_size * j, self.cell_size * i, self.cell_size, self.cell_size),
                     )
 
     def reverse_cell(self, pos):
