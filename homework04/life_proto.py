@@ -10,9 +10,7 @@ Grid = tp.List[Cells]
 
 
 class GameOfLife:
-    def __init__(
-        self, width: int = 640, height: int = 480, cell_size: int = 10, speed: int = 10
-    ) -> None:
+    def __init__(self, width: int = 640, height: int = 480, cell_size: int = 10, speed: int = 10) -> None:
         self.width = width
         self.height = height
         self.cell_size = cell_size
@@ -96,9 +94,7 @@ class GameOfLife:
             for j in range(self.cell_width):
                 cell = self.grid[i][j]
                 color = (255, 255, 255) if cell == 0 else (255, 0, 100)
-                rect = pygame.Rect(
-                    j * self.cell_size, i * self.cell_size, self.cell_size, self.cell_size
-                )
+                rect = pygame.Rect(j * self.cell_size, i * self.cell_size, self.cell_size, self.cell_size)
                 pygame.draw.rect(self.screen, color, rect)
 
     def get(self, i: int, j: int) -> bool:
