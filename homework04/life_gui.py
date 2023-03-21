@@ -61,6 +61,7 @@ class GUI(UI):
                     if event.button == 1:
                         self.reverse_cell(pygame.mouse.get_pos())
             self.screen.fill(pygame.Color("white"))
+            self.draw_grid()
             self.draw_lines()
 
             # Отрисовка списка клеток
