@@ -52,8 +52,8 @@ class GameOfLife:
             self.draw_lines()
 
             # Отрисовка рамки и сетки
-            self.draw_lines()
             self.draw_grid()
+            self.draw_lines()
 
             self.grid = self.get_next_generation()
 
