@@ -7,8 +7,8 @@ import pandas as pd
 import requests  # type: ignore
 import telebot
 
+bot = telebot.TeleBot("6102785506:AAF84IPauLelZATSr2aKOv-Qj76xNpt5878")
 if __name__ == "__main__":
-    bot = telebot.TeleBot("6102785506:AAF84IPauLelZATSr2aKOv-Qj76xNpt5878")
     subject_n = 0
     connected = False
     df = pd.DataFrame
