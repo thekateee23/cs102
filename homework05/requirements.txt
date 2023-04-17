@@ -4,4 +4,3 @@ requests
 telebot
 datetime
 gspread
-json
