@@ -3,9 +3,8 @@ from datetime import datetime, timedelta
 
 import gspread
 import numpy as np
-import pandas
 import pandas as pd
-import requests
+import requests  # type: ignore
 import telebot
 
 bot = telebot.TeleBot("6102785506:AAF84IPauLelZATSr2aKOv-Qj76xNpt5878")
