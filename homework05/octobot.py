@@ -7,6 +7,15 @@ import pandas as pd
 import requests  # type: ignore
 import telebot
 
+if __name__ == "__main__":
+    bot = telebot.TeleBot("6102785506:AAF84IPauLelZATSr2aKOv-Qj76xNpt5878")
+    subject_n = 0
+    connected = False
+    df = pd.DataFrame
+    sheet = ""
+    dedline_n = 0
+    bot.infinity_polling()
+
 
 def is_valid_date(date: str = "01/01/00", divider: str = "/") -> bool:
     """Проверяем, что дата дедлайна валидна:
@@ -428,13 +437,3 @@ def start(message):
     start_markup.row("Редактировать предметы")
     info = bot.send_message(message.chat.id, "Что хотите сделать?", reply_markup=start_markup)
     bot.register_next_step_handler(info, choose_action)
-
-
-if __name__ == "__main__":
-    bot = telebot.TeleBot("6102785506:AAF84IPauLelZATSr2aKOv-Qj76xNpt5878")
-    subject_n = 0
-    connected = False
-    df = pd.DataFrame
-    sheet = ""
-    dedline_n = 0
-    bot.infinity_polling()
