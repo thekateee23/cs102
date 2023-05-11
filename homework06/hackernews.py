@@ -51,13 +51,17 @@ def update_news():
 @route("/classify")
 def classify_news():
     s = session()
+    train = s.query(News).filter(News.label != None).all()
+    x = [i.title for i in train]
+    y = [i.label for i in train]
+    bayes.fit(x, y)
     news = s.query(News).filter(News.label == None).all()
     X = [i.title for i in news]
     y = bayes.predict(X)
     for i in range(len(news)):
         news[i].label = y[i]
     s.commit()
-    return template("news_template", rows=news)
+    return sorted(news, key=lambda x: x.label)
 
 
 @route("/recommendations")

@@ -11,6 +11,7 @@ from nltk.tokenize import wordpunct_tokenize
 class NaiveBayesClassifier:
     def __init__(self, alpha=0.05):
         self.word_probabilities = defaultdict(Counter)
+        self.class_probabilities = defaultdict()
         self.alpha = alpha
         self.labels = set()
         self.words = Counter()
@@ -27,8 +28,8 @@ class NaiveBayesClassifier:
         self.class_probabilities = {label: count / total_count for label, count in class_counts.items()}
         for doc, label in zip(X, y):
             for word in wordpunct_tokenize(doc):
-                stemmed = ps.stem(word)
-                # stemmed = lemmatizer.lemmatize(word)
+                # stemmed = ps.stem(word)
+                stemmed = lemmatizer.lemmatize(word)
                 self.words[stemmed] += 1
                 self.word_probabilities[label][stemmed] += 1
         count_labels = {}
@@ -50,10 +51,10 @@ class NaiveBayesClassifier:
             scores = {label: np.log(prob) for label, prob in self.class_probabilities.items()}
             for word in wordpunct_tokenize(doc):
                 for label, word_probs in self.word_probabilities.items():
-                    if word_probs[ps.stem(word)] != 0:
-                        scores[label] += np.log(word_probs[ps.stem(word)])
-                    # if word_probs[lemmatizer.lemmatize(word)] != 0:
-                    #     scores[label] += np.log(word_probs[lemmatizer.lemmatize(word)])
+                    # if word_probs[ps.stem(word)] != 0:
+                    #     scores[label] += np.log(word_probs[ps.stem(word)])
+                    if word_probs[lemmatizer.lemmatize(word)] != 0:
+                        scores[label] += np.log(word_probs[lemmatizer.lemmatize(word)])
 
             predicted_label = max(scores, key=scores.get)
             predictions.append(predicted_label)
@@ -61,26 +62,23 @@ class NaiveBayesClassifier:
 
     def score(self, X_test, y_test):
         """Returns the mean accuracy on the given test data and labels."""
-        print(y_test.count("spam"), len(y_test), y_test.count("ham") / len(y_test))
         correct = 0
         total = len(y_test)
         predictions = self.predict(X_test)
-        print(predictions.count("spam"))
         for prediction, true_label in zip(predictions, y_test):
             if prediction == true_label:
                 correct += 1
-        print(correct / total)
         return correct / total
 
-    # def save(self, path):
-    #     """Save model to path"""
-    #
-    #     with open(path, "wb") as f:
-    #         pickle.dump(self, f)
+    def save(self, path):
+        """Save model to path"""
 
-    # @staticmethod
-    # def load(path):
-    #     """Load model from path"""
-    #
-    #     with open(path, "rb") as f:
-    #         return pickle.load(f)
+        with open(path, "wb") as f:
+            pickle.dump(self, f)
+
+    @staticmethod
+    def load(path):
+        """Load model from path"""
+
+        with open(path, "rb") as f:
+            return pickle.load(f)
