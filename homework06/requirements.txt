@@ -1,2 +1,3 @@
 boddle
 nltk
+sqlalchemy
