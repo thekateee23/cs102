@@ -6,7 +6,7 @@ import numpy as np
 from nltk.stem import PorterStemmer, WordNetLemmatizer
 from nltk.tokenize import wordpunct_tokenize
 
-nltk.download('wordnet')
+nltk.download("wordnet")
 # 9019138755980861
 # 0.5376794258373205
 class NaiveBayesClassifier:
