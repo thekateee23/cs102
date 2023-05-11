@@ -1,58 +1,86 @@
 import pickle
+from collections import Counter, defaultdict
+
+import numpy as np
+from nltk.stem import PorterStemmer, WordNetLemmatizer
+from nltk.tokenize import wordpunct_tokenize
 
 
+# 9019138755980861
+# 0.5376794258373205
 class NaiveBayesClassifier:
-    def __init__(self, alpha):
+    def __init__(self, alpha=0.05):
+        self.word_probabilities = defaultdict(Counter)
         self.alpha = alpha
         self.labels = set()
-        self.words = set()
+        self.words = Counter()
         self.word_dict = dict()
         self.label_dict = dict()
 
     def fit(self, X, y):
         """Fit Naive Bayes classifier according to X, y."""
-        for sentence, label in zip(X, y):
-            self.labels.add(label)
-            self.label_dict[label] = self.label_dict.get(label, 0) + 1
-            for word in sentence:
-                self.words.add(word)
-                if word not in self.word_dict:
-                    self.word_dict[word] = dict()
-                self.word_dict[word][label] = self.word_dict[word].get(label, 0) + 1
+        ps = PorterStemmer()
+        lemmatizer = WordNetLemmatizer()
+        class_counts = Counter(y)
+        total_count = len(y)
+        self.labels = set(y)
+        self.class_probabilities = {label: count / total_count for label, count in class_counts.items()}
+        for doc, label in zip(X, y):
+            for word in wordpunct_tokenize(doc):
+                stemmed = ps.stem(word)
+                # stemmed = lemmatizer.lemmatize(word)
+                self.words[stemmed] += 1
+                self.word_probabilities[label][stemmed] += 1
+        count_labels = {}
+        for label in self.labels:
+            count_labels[label] = sum(self.word_probabilities[label].values())
+        for word in self.words:
+            for label in self.labels:
+                self.word_probabilities[label][word] = (self.word_probabilities[label][word] + self.alpha) / (
+                    count_labels[label] + self.alpha * len(self.words)
+                )
 
     def predict(self, X):
         """Perform classification on an array of test vectors X."""
-        y_pred = []
-        for sentence in X:
-            max_label = None
-            max_prob = 0
-            for label in self.labels:
-                prob = self.label_dict[label] / sum(self.label_dict.values())
-                for word in sentence:
-                    prob *= (self.word_dict.get(word, dict()).get(label, 0) + self.alpha) / (
-                        self.label_dict[label] + self.alpha * len(self.words)
-                    )
-                if prob > max_prob:
-                    max_prob = prob
-                    max_label = label
-            y_pred.append(max_label)
-        return y_pred
+        predictions = []
+        ps = PorterStemmer()
+        lemmatizer = WordNetLemmatizer()
+        c = 0
+        for doc in X:
+            scores = {label: np.log(prob) for label, prob in self.class_probabilities.items()}
+            for word in wordpunct_tokenize(doc):
+                for label, word_probs in self.word_probabilities.items():
+                    if word_probs[ps.stem(word)] != 0:
+                        scores[label] += np.log(word_probs[ps.stem(word)])
+                    # if word_probs[lemmatizer.lemmatize(word)] != 0:
+                    #     scores[label] += np.log(word_probs[lemmatizer.lemmatize(word)])
+
+            predicted_label = max(scores, key=scores.get)
+            predictions.append(predicted_label)
+        return predictions
 
     def score(self, X_test, y_test):
-        print(1)
-        """ Returns the mean accuracy on the given test data and labels. """
-        _y = self.predict(X_test)
-        return sum([1 if i == j else 0 for i, j in zip(_y, y_test)]) / len(y_test)
+        """Returns the mean accuracy on the given test data and labels."""
+        print(y_test.count("spam"), len(y_test), y_test.count("ham") / len(y_test))
+        correct = 0
+        total = len(y_test)
+        predictions = self.predict(X_test)
+        print(predictions.count("spam"))
+        for prediction, true_label in zip(predictions, y_test):
+            if prediction == true_label:
+                correct += 1
+        print(correct / total)
+        return correct / total
 
-    def save(self, path):
-        """Save model to path"""
+    # def save(self, path):
+    #     """Save model to path"""
+    #
+    #     with open(path, "wb") as f:
+    #         pickle.dump(self, f)
 
-        with open(path, "wb") as f:
-            pickle.dump(self, f)
-
-    @staticmethod
-    def load(path):
-        """Load model from path"""
-
-        with open(path, "rb") as f:
-            return pickle.load(f)
+    # @staticmethod
+    # def load(path):
+    #     """Load model from path"""
+    #
+    #     with open(path, "rb") as f:
+    #         return pickle.load(f)

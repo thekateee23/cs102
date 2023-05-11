@@ -5,6 +5,7 @@ import unittest
 from bayes import NaiveBayesClassifier
 
 PATH_FOR_GIT = "/home/runner/work/cs102/cs102/homework06/data/"
+# PATH_FOR_GIT = str("../data/")
 
 
 class TestBayes(unittest.TestCase):
@@ -42,7 +43,7 @@ class TestBayes(unittest.TestCase):
             "I cant believe I'm doing this",
         ]
         Y_test = ["Positive", "Negative", "Negative", "Positive", "Negative", "Negative"]
-        model = NaiveBayesClassifier()
+        model = NaiveBayesClassifier(1)
         model.fit(X_train, Y_train)
         Y_output = model.predict(X_test)
         self.assertEqual(Y_output, Y_test)
