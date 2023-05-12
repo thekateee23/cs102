@@ -17,7 +17,7 @@ class TestHackernews(unittest.TestCase):
                 url="https://news.ycombinator.com/item?id=31099186",
                 comments=83,
                 points=171,
-                label='never',
+                label="never",
             )
             session.return_value.query.return_value.get.return_value = news
             add_label()
