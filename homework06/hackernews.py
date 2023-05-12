@@ -25,6 +25,8 @@ def add_label():
     # news.label = label
     # s.add(news)
     s.commit()
+
+
     #print(news.label)
     if __name__ == '__main__':
         redirect("/news")
@@ -49,8 +51,10 @@ def update_news():
             )
     s.commit()
 
+    
     if __name__ == '__main__':
         redirect("/news")
+
 
 @route("/classify")
 def classify_news():
