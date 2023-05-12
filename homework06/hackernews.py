@@ -21,11 +21,15 @@ def add_label():
     label = request.query.label
     nid = request.query.id
     s = session()
-    news = s.query(News).filter(News.id == nid).first()
-    news.label = label
+    s.query(News).filter(News.id == nid).first().label = label
+    # news.label = label
+    # s.add(news)
     s.commit()
+    #print(news.label)
+    if __name__ == '__main__':
+        redirect("/news")
 
-    redirect("/news")
+
 
 
 @route("/update")
@@ -45,8 +49,8 @@ def update_news():
             )
     s.commit()
 
-    redirect("/news")
-
+    if __name__ == '__main__':
+        redirect("/news")
 
 @route("/classify")
 def classify_news():
